@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Статусы уязвимостей</title>
+</head>
+<body>
+<div th:each="status : ${statuses}">
+    <a th:href="@{/statuses/{id}(id=${status.getId()})}" th:text="${status.getName()}">user</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/statuses/new">Создать новый статус</a>
+</body>
+</html>

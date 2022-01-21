@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Статус</title>
+</head>
+<body>
+<p th:text="${status.getName()}">VALUE</p>
+<p th:text="${status.getId()}">VALUE</p>
+
+<a th:href="@{{id}/edit(id=${status.getId()})}">Редактировать</a>
+
+<form th:method="DELETE" th:action="@{/statuses/{id}(id=${status.getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+</body>
+</html>
