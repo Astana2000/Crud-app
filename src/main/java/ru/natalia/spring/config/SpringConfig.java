@@ -52,7 +52,7 @@ public class SpringConfig implements WebMvcConfigurer {
         registry.viewResolver(resolver);
         resolver.setCharacterEncoding("UTF-8");
     }
-    @Bean
+   /* @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
@@ -63,5 +63,5 @@ public class SpringConfig implements WebMvcConfigurer {
     @Bean
     public JdbcTemplate jdbcTemplate(){
         return new JdbcTemplate(dataSource());
-    }
+    }*/
 }

@@ -1,41 +1,51 @@
 package ru.natalia.spring.dao;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.natalia.spring.models.Status;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Component
 public class StatusDAO {
-    @Autowired
-    private final JdbcTemplate jdbcTemplate;
+  /*  @Autowired
+    private final JdbcTemplate jdbcTemplate;*/
+    private SessionFactory sessionFactory;
 
-    public StatusDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public StatusDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
-
+    @Transactional
     public List<Status> index() {
-       return jdbcTemplate.query("Select * from Status",new BeanPropertyRowMapper<>(Status.class));
-
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from Status ").list();
     }
-
+    @Transactional
     public Status show(int id) {
-        return jdbcTemplate.query("Select * from Status where id=?", new Integer[]{id}, 
-                new BeanPropertyRowMapper<>(Status.class)).stream().findAny().orElse(null);
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Status.class,id);
     }
-
+    @Transactional
     public void save(Status status)  {
-       jdbcTemplate.update("Insert into Status values (1,?)", status.getName());
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(status);
+      // jdbcTemplate.update("Insert into Status values (1,?)", status.getName());
     }
-
+    @Transactional
     public void update(int id, Status updateStatus) {
-        jdbcTemplate.update("Update Status Set name=? where id = ?", updateStatus.getName(),id);
+        Session session = sessionFactory.getCurrentSession();
+        session.update(String.valueOf(id),updateStatus);
+       // jdbcTemplate.update("Update Status Set name=? where id = ?", updateStatus.getName(),id);
     }
-
+    @Transactional
     public void delete(int id) {
-       jdbcTemplate.update("Delete from Status where id=?",id);
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(session.get(Status.class,id));
+      // jdbcTemplate.update("Delete from Status where id=?",id);
     }
 }
