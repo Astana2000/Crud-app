@@ -1,28 +1,25 @@
 package ru.natalia.spring.models;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="statuses")
-public class Status {
-
+@Table(name="relations")
+public class Relation {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="name")
-    @NotEmpty(message = "Необходимо написать имя статуса")
+    @Column(name = "name")
+    @NotEmpty(message = "Необходимо написать имя проекта")
     @Size(min=2,max=30,message = "Название должно быть в диапазоне 2 и 30 букв")
     private String name;
 
-    public Status(){
-    }
-    public Status(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public Relation(){
+
     }
 
     public int getId() {

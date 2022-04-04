@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Решение уязвимости</title>
+</head>
+<body>
+<p th:text="${workaround.getName()}">VALUE</p>
+<p th:text="${workaround.getId()}">VALUE</p>
+
+<a th:href="@{{id}/edit(id=${workaround.getId()})}">Редактировать</a>
+
+<form th:method="DELETE" th:action="@{/workarounds/{id}(id=${workaround.getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+</body>
+</html>

@@ -1,6 +1,5 @@
 package ru.natalia.spring.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,8 +12,11 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/statuses")
 public class StatusController {
-    @Autowired
-    private StatusDAO statusDAO;
+    private final StatusDAO statusDAO;
+
+    public StatusController(StatusDAO statusDAO) {
+        this.statusDAO = statusDAO;
+    }
 
     @GetMapping()
     public String index(Model model){ //получим все статусы из DAO и передадим на отображение во view

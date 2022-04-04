@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Обновить информацию о решении</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/workarounds/{id}(id=${workaround.getId()})}"
+      th:object="${workaround}">
+    <label for="name" >Измените название решения: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
+</body>
+</html>

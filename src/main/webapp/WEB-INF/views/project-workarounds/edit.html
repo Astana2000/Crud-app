@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Обновить информацию о решении в проекте</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/project-workarounds/{id}(id=${projectWorkaround.getId()})}"
+      th:object="${projectWorkaround}">
+    <label for="description" >Измените описание решения: </label>
+    <input type="text" th:field="*{description}" id="description"/>
+    <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</div>
+    <br/>
+    <label for="workaround" >Выберите id решения из справочника: </label>
+    <div class="col-lg-3" th:object="${projectWorkaround}">
+        <select class="form-control" id="workaround" name="workaround">
+            <option value="">Select Workaround</option>
+            <option th:each="workaround : ${workarounds}"
+                    th:value="${workaround.getId()}"
+                    th:text="${workaround.getId()}+' : '+${workaround.getName()}"></option>
+        </select>
+    </div>
+    <div style="color:red" th:if="${#fields.hasErrors('workaround')}" th:errors="*{workaround}">Workaround error</div>
+    <input type="submit" value="Update!"/>
+</form>
+</body>
+</html>
